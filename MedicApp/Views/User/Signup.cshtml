@@ -1,0 +1,172 @@
+﻿@model MedicApp.DTO.UserSignupDTO
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .hidden-field {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center ">
+        <h1 class="mt-4">Sign Up </h1>
+
+        <main class="con2 w-75 mt-5 p-3 border border-success mx-auto rounded-3">
+            <form asp-controller="User" asp-action="Signup" method="POST">
+                <div class="row mb-3">
+                    <label for="Username" class="col-md-1 col-form-label text-start text-black">Username</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="Username" id="Username"
+                               placeholder="Enter username" />
+                    </div>
+                    <label for="Password" class="col-md-1 col-form-label text-start text-black">Password</label>
+                    <div class="col-md-5">
+                        <input type="Password" class="form-control" name="Password" id="Password"
+                               placeholder="Enter password" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="Firstname" class="col-md-1 col-form-label text-start text-black">Firstname</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="Firstname" id="Firstname"
+                               placeholder="Enter firstname" />
+                    </div>
+                    <label for="Lastname" class="col-md-1 col-form-label text-start text-black">Lastname</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="Lastname" id="Lastname"
+                               placeholder="Enter lastname" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="UserRole" class="col-md-1 col-form-label text-start text-black">Role</label>
+                    <div class="col-md-5">
+                        <select class="form-select" aria-label="Default select example" name="UserRole" id="UserRole">
+                            <option selected>Select Role</option>
+                            <option value="Doctor">Doctor</option>
+                            <option value="Patient">Patient</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3 hidden-field" id="doctor-fields">
+                    <label for="DoctorEmail" class="col-md-1 col-form-label text-start text-black">Doctor Email</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="DoctorEmail" id="DoctorEmail"
+                               placeholder="Enter email" />
+                    </div>
+
+                    <label for="DoctorPhone" class="col-md-1 col-form-label text-start text-black">Doctor Phone</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="DoctorPhone" id="DoctorPhone"
+                               placeholder="Enter phone number" />
+                    </div>
+
+                    <label for="Speciality" class="col-md-1 col-form-label text-start text-black">Speciality</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="Speciality" id="Speciality"
+                               placeholder="Enter speciality" />
+                    </div>
+                </div>
+
+                <div class="row mb-3 hidden-field" id="patient-fields">
+                    <label for="PatientEmail" class="col-md-1 col-form-label text-start text-black">Patient Email</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="PatientEmail" id="PatientEmail"
+                               placeholder="Enter email" />
+                    </div>
+
+                    <label for="PatientPhone" class="col-md-1 col-form-label text-start text-black">Patient Phone</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="PatientPhone" id="PatientPhone"
+                               placeholder="Enter phone number" />
+                    </div>
+
+                    <label for="BirthDate" class="col-md-1 col-form-label text-start text-black">BirthDate</label>
+                    <div class="col-md-5">
+                        <input type="date" class="form-control" name="BirthDate" id="BirthDate"
+                               placeholder="Enter BirthDate" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="offset-md-1 col-md-5 d-grid">
+                        <button type="submit" class="btn btn-success">Sign Up</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+    <div>
+        @if (ViewData["ErrorArray"] is not null)
+        {
+            var errorArray = ViewData["ErrorArray"] as List<Error>;
+            @if (errorArray != null)
+            {
+                @foreach (var error in errorArray)
+                {
+                    <div>
+                        <p>@error.Message</p>
+                    </div>
+                }
+            }
+        }
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const roleSelect = document.getElementById("UserRole");
+            const doctorFields = document.getElementById("doctor-fields");
+            const patientFields = document.getElementById("patient-fields");
+
+            roleSelect.addEventListener("change", function () {
+                switch (roleSelect.value) {
+                    case "Doctor":
+                        doctorFields.classList.remove("hidden-field");
+                        patientFields.classList.add("hidden-field");
+                        break;
+                    case "Patient":
+                        patientFields.classList.remove("hidden-field");
+                        doctorFields.classList.add("hidden-field");
+                        break;
+                    default:
+                        doctorFields.classList.add("hidden-field");
+                        patientFields.classList.add("hidden-field");
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+<style>
+    .con2 {
+        background-image: url('https://images.everydayhealth.com/homepage/health-topics-2.jpg?sfvrsn=757370ae_2');
+        background-size: 80%;
+        background-position: center;
+        opacity: 0.8;
+    }
+
+    body {
+        background-color: rgb(229,255,204)
+    }
+
+    h1 {
+        font-family: 'Trebuchet MS', sans-serif;
+        color: darkslategrey; 
+        text-shadow: 2px 2px 3px grey;
+        font-size: 50px;
+    }
