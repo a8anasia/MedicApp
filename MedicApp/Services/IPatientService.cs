@@ -6,5 +6,8 @@ namespace MedicApp.Services
     {
        Task<Patient?> GetPatientByIdAsync(int id);
        Task<Patient?> GetPatientByUserIdAsync(int id);
+       Task<List<Appointment>> GetAllPatientAppointments(int patiendId);
+
+       Task<int> GetUserIdByUsernameAsync(string username);
     }
 }

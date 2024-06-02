@@ -8,8 +8,8 @@
             <div class="col-xl-6 col-md-12">
                 <div class="card user-card-full">
                     <div class="row m-l-0 m-r-0">
-                        <div class="col-sm-4 bg-c-lite-green user-profile">
-                            <div class="card-block text-center text-white">
+                        <div class="col-sm-4 bg-c-lite-green user-profile img">
+                            <div class="card-block text-center ">
                                 <h6 class="f-w-600 name">@Model.Firstname @Model.Lastname</h6>
                                 <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                             </div>
@@ -31,7 +31,10 @@
                                         <h6 class="text-muted f-w-400">@Model.BirthDate</h6>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button class="btn" type="button">My History</button>
+                                        <a class="btn" href="~/Patient/History">My History</a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a class="btn" href="~/Patient/Appointment">New Appointment</a>
                                     </div>
                                 </div>
                                 </div>
@@ -76,11 +79,6 @@
 
 .user-card-full .user-profile {
     border-radius: 5px 0 0 5px;
-}
-
-.bg-c-lite-green {
-        background: -webkit-gradient(linear, left top, right top, from(#315a39 ), to(#7a9f79));
-        background: linear-gradient(to right, #315a39, #acd1af);
 }
 
 .user-profile {
@@ -174,7 +172,6 @@ p {
 
 .name{
     font-size: 30px;
-    color: white;
 }
 
 .btn{
@@ -183,10 +180,18 @@ p {
         color: white;
         padding: 15px 32px;
         text-align: center;
-        text-decoration: none;
+        text-decoration: none; 
         display: inline-block;
-        font-size: 16px;
+        font-size: 20px;
         margin: 4px 2px;
         border-radius: 10px;
+        cursor: pointer;
+}
+
+.img{
+        background-image: url('https://images.everydayhealth.com/homepage/health-topics-2.jpg?sfvrsn=757370ae_2');
+        background-size: 80%;
+        background-position: center;
+        opacity: 0.8;
 }
 </style>

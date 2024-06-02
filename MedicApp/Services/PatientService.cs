@@ -41,5 +41,18 @@ namespace MedicApp.Services
             return patient;
 
         }
+
+        public async Task<List<Appointment>> GetAllPatientAppointments(int patiendId)
+        {
+            List<Appointment> appointments = await _unitOfWork.PatientRepository.GetAllPatientAppointments(patiendId);
+          
+            return appointments;
+        }
+
+        public async Task<int> GetUserIdByUsernameAsync(string username)
+        {
+            var user = await _unitOfWork.UserRepository.GetByUsernameAsync(username);
+            return user.Id;
+        }
     }
 }

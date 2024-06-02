@@ -11,12 +11,11 @@ namespace MedicApp.Repositories
         {
         }
 
-        public async Task<List<Appointment>> GetAllPatientAppointments(int id)
+        public async Task<List<Appointment>> GetAllPatientAppointments(int patiendId)
         {
             List<Appointment> appointments;
-            appointments = await _context.Patients
-                       .Where(a => a.Id == id)
-                       .SelectMany(a => a.Appointments)
+            appointments = await _context.Appointments
+                       .Where(a => a.PatientId == patiendId)
                        .ToListAsync();
             return appointments;
         }
@@ -37,17 +36,17 @@ namespace MedicApp.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Patient?> GetPatientByLastname(string? Lastname)
+        public async Task<int> GetUserIdByUsernameAsync(string username)
         {
-            return await _context.Patients.Where(s => s.Lastname == Lastname)
-                .FirstOrDefaultAsync()!;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            return user.Id;
         }
 
-        public async Task<Patient> GetPatientByUserIdAsync(int userId)
+        public async Task<Patient?> GetPatientByUserIdAsync(int userId)
         {
-            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
-
-            return patient;
+            return await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
         }
+
+    
     }
 }
