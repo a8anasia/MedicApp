@@ -6,6 +6,7 @@ using Error = MedicApp.Models.Error;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using MedicApp.Data;
 
 namespace MedicApp.Controllers
 {
@@ -14,10 +15,12 @@ namespace MedicApp.Controllers
         public List<Error> ErrorArray { get; set; } = new();
 
         private readonly IApplicationService _applicationService;
+        private readonly IPatientService _patientService;
 
-        public UserController(IApplicationService applicationService) : base()
+        public UserController(IApplicationService applicationService, IPatientService patientService) : base()
         {
             _applicationService = applicationService;
+            _patientService = patientService;
         }
 
         [HttpGet]
@@ -98,11 +101,12 @@ namespace MedicApp.Controllers
 
             if (user.UserRole == UserRole.Doctor)
             {
-                return RedirectToAction("Index", "Doctor");
+                return RedirectToAction("Index", "Doctor", new { id = user.Id });
             }
-            else if (user.UserRole == UserRole.Patient);
+            else //(user.UserRole == UserRole.Patient)
             {
-                return RedirectToAction("Index", "Patient");
+
+                return RedirectToAction("Index" ,"Patient", new { id = user.Id });
             }
            
         }

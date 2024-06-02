@@ -42,5 +42,12 @@ namespace MedicApp.Repositories
             return await _context.Patients.Where(s => s.Lastname == Lastname)
                 .FirstOrDefaultAsync()!;
         }
+
+        public async Task<Patient> GetPatientByUserIdAsync(int userId)
+        {
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
+
+            return patient;
+        }
     }
 }

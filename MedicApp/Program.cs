@@ -30,6 +30,8 @@ namespace MedicApp
                 config.ReadFrom.Configuration(context.Configuration);
             });
 
+            builder.Services.AddScoped<IPatientService, PatientService>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
