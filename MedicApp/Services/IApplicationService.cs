@@ -4,6 +4,8 @@
 	{
 		UserService UserService { get; }
 		DoctorService DoctorService { get; }
-		//PatientService PatientService {get; }
+		PatientService PatientService {get; }
+
+		AppointmentService AppointmentService { get; }
 	}
 }

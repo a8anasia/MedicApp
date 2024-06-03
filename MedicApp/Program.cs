@@ -44,6 +44,8 @@ namespace MedicApp
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
             });
 
+            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

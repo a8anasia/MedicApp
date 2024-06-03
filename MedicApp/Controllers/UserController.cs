@@ -15,12 +15,12 @@ namespace MedicApp.Controllers
         public List<Error> ErrorArray { get; set; } = new();
 
         private readonly IApplicationService _applicationService;
-        private readonly IPatientService _patientService;
 
-        public UserController(IApplicationService applicationService, IPatientService patientService) : base()
+
+        public UserController(IApplicationService applicationService) : base()
         {
             _applicationService = applicationService;
-            _patientService = patientService;
+       
         }
 
         [HttpGet]

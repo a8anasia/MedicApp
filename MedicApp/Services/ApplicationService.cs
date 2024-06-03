@@ -19,5 +19,9 @@ namespace MedicApp.Services
         public UserService UserService => new(_unitOfWork, _logger, _mapper);
 
         public DoctorService DoctorService => new(_unitOfWork, _logger, _mapper);
+
+        public PatientService PatientService => new(_unitOfWork, _logger, _mapper);
+
+        public AppointmentService AppointmentService => new(_unitOfWork, _logger, _mapper);
     }
 }

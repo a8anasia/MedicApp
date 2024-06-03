@@ -37,7 +37,6 @@ namespace MedicApp.Services
         public async Task<Patient?> GetPatientByUserIdAsync(int userId)
         {
             var patient = await _unitOfWork.PatientRepository.GetPatientByUserIdAsync(userId);
-            Console.WriteLine( patient.Id);
             return patient;
 
         }
