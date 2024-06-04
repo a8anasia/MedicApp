@@ -20,7 +20,7 @@ namespace MedicApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Appointment()
+        public async Task<IActionResult> Index()
         {
             var doctors = await _applicationService.DoctorService.GetAllDoctorsAsync();
             var viewModel = new NewAppointmentViewModel
