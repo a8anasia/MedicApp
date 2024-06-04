@@ -8,6 +8,9 @@
 
         public AppointmentRepository AppointmentRepository { get; }
 
+        public MedicineRepository MedicineRepository { get; }
+        public DiagnosisRepository DiagnosisRepository { get; }
+
         Task<bool> SaveAsync();
 
 

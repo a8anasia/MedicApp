@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MedicApp.Data;
 using MedicApp.DTO;
+using MedicApp.Models;
 
 namespace MedicApp.Configuration
 {
@@ -12,5 +13,7 @@ namespace MedicApp.Configuration
             CreateMap<User, UserPatchDTO>().ReverseMap();
             CreateMap<User, UserLoginDTO>().ReverseMap();
         }
+
+
     }
 }

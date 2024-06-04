@@ -2,7 +2,7 @@
 
 namespace MedicApp.Models
 {
-    public class AppointmentViewModel
+    public class NewAppointmentViewModel
     {
         public List<Doctor>? Doctors { get; set; }
 

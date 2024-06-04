@@ -20,6 +20,12 @@ namespace MedicApp.Repositories
 
         public AppointmentRepository AppointmentRepository => new(_context);
 
+        public MedicineRepository MedicineRepository => new(_context);
+
+        public DiagnosisRepository DiagnosisRepository => new(_context);
+
+      
+
         public async Task<bool> SaveAsync()
         {
            try

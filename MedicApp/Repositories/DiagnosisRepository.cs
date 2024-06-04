@@ -1,4 +1,5 @@
 ﻿using MedicApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedicApp.Repositories
 {
@@ -6,6 +7,13 @@ namespace MedicApp.Repositories
     {
         public DiagnosisRepository(MedicAppDbContext? context) : base(context)
         {
+        }
+
+        public async Task<List<Diagnosis>> GetAllDiagnosisAsync()
+        {
+            List<Diagnosis> diagnoses;
+            diagnoses = await _context.Diagnoses.ToListAsync();
+            return diagnoses;
         }
     }
 }
