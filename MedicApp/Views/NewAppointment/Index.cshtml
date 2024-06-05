@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <h2>Book your appointment</h2>
 
-<form asp-controller="Patient" asp-action="CheckAppointment" method="post">
+<form asp-controller="NewAppointment" asp-action="CheckAppointment" method="post">
     <div class="form-group m-3">
         <label for="selectedDate">Select Date:</label>
-        <input type="date" id="selectedDate" name="SelectedDate" class="form-control w-25" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+        <input type="date" id="selectedDate" min="" name="SelectedDate" class="form-control w-25" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
     </div>
 
     <div class="form-group m-3">
@@ -35,4 +35,7 @@
     }
 </form>
 
-     
+<script>
+     var today = new Date().toISOString().split('T')[0];
+    document.getElementById("selectedDate").setAttribute("min", today);
+ </script>

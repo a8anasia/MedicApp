@@ -95,7 +95,7 @@
 
                     <label for="BirthDate" class="col-md-1 col-form-label text-start text-black">BirthDate</label>
                     <div class="col-md-5">
-                        <input type="date" class="form-control" name="BirthDate" id="BirthDate"
+                        <input type="date" class="form-control" name="BirthDate" id="BirthDate" max=""
                                placeholder="Enter BirthDate" />
                     </div>
                 </div>
@@ -146,6 +146,12 @@
                 }
             });
         });
+
+    </script>
+    <script>
+
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("BirthDate").setAttribute("max", today);
     </script>
 </body>
 </html>
