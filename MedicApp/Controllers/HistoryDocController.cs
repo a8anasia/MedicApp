@@ -6,30 +6,31 @@ using System.Security.Claims;
 
 namespace MedicApp.Controllers
 {
-    public class FutureAppointmentsController : Controller
+    public class HistoryDocController : Controller
     {
         public List<Error> ErrorArray { get; set; } = new();
 
         private readonly IApplicationService _applicationService;
 
 
-        public FutureAppointmentsController(IApplicationService applicationService) : base()
+        public HistoryDocController(IApplicationService applicationService) : base()
         {
             _applicationService = applicationService;
 
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var userId = await _applicationService.PatientService.GetUserIdByUsernameAsync(userUsername);
+            var userId = await _applicationService.DoctorService.GetUserIdByUsername(userUsername);
 
-            var patient = await _applicationService.PatientService.GetPatientByUserIdAsync(userId);
+            var doctor = await _applicationService.DoctorService.GetDoctorByUserIdAsync(userId);
 
-            List<Appointment?> appointments = await _applicationService.PatientService.GetAllPatientAppointments(patient.Id);
+            List<Appointment?> appointments = await _applicationService.DoctorService.GetAllDoctorAppointments(doctor.Id);
 
-            List<Doctor> doctors = (List<Doctor>)await _applicationService.DoctorService.GetAllDoctorsAsync();
+            List<Patient> patient = await _applicationService.DoctorService.GetAllPatients();
 
             List<Medicine> medicines = await _applicationService.MedicineService.GetAllMedicinesAsync();
 
@@ -37,20 +38,19 @@ namespace MedicApp.Controllers
 
             if (appointments != null)
             {
-                List<AppointmentsViewModel> futureApp = appointments.Select(x => new AppointmentsViewModel
+                List<AppointmentsViewModelDoc> history = appointments.Select(x => new AppointmentsViewModelDoc
                 {
                     appointmentId = x.Id,
                     date = x.Date,
-                    doctorId = x.DoctorId,
+                    patientId = x.PatientId,
+                    patientLastname = x.Patient.Lastname,
                     diagnosisId = x.DiagnosisId,
                     medicineId = x.MedicineId,
-                    doctorLastname = x.Doctor.Lastname,
-                    Speciality = x.Doctor.Speciality,
                     medicineName = x.Medicine?.Name,
                     diagnosisName = x.Diagnosis?.Name
                 }).ToList();
 
-                return View(futureApp);
+                return View(history);
             }
             else
             {

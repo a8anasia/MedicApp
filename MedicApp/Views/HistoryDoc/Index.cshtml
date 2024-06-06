@@ -1,4 +1,4 @@
-﻿@model IList<AppointmentsViewModel>
+﻿@model IList<AppointmentsViewModelDoc>
 
 @{
     Layout = null;
@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<h2 class="text-center mb-4 pt-4 pb-4 bgcolor">Booked Appointments</h2>
+<h2 class="text-center mb-4 pt-4 pb-4 bgcolor">My History</h2>
 
 
 <table class="mx-auto table center-table ">
@@ -14,25 +14,28 @@
         <tr>
             <th scope="col">Appointment ID</th>
             <th scope="col">Date</th>
-            <th spoce="col">Doctor's Lastname</th>
-            <th spoce="col">Speciality</th>
+            <th spoce="col">Patient ID</th>
+            <th spoce="col">Patient Lastname</th>
+            <th scope="col">Diagnosis</th>
+            <th scope="col">Medicine</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.date >= DateOnly.FromDateTime(DateTime.Now))
+            if (item.date < DateOnly.FromDateTime(DateTime.Now))
             {
                 <tr>
                     <td>@item.appointmentId</td>
                     <td>@item.date</td>
-                    <td>@item.doctorLastname</td>
-                    <td>@item.Speciality</td>
+                    <td>@item.patientId</td>
+                    <td>@item.patientLastname</td>
+                    <td>@item.diagnosisName</td>
+                    <td>@item.medicineName</td>
                 </tr>
             }
 
         }
-    </tbody>
     </tbody>
 </table>
 

@@ -9,5 +9,9 @@ namespace MedicApp.Repositories
         Task<Doctor?> GetDoctorsByLastname(string? Lastname);
         Task<List<Medicine>> GetAllMedicinesAsync();
         Task<List<Diagnosis>> GetAllDiagnosisAsync();
+        Task<Doctor?> GetDoctorByUserIdAsync(int userId);
+        Task<int?> GetUserIdByUsernameAsync(string username);
+
+        Task<List<Patient>> GetAllPatient();
     }
 }

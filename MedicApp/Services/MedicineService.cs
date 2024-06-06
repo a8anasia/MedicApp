@@ -22,5 +22,17 @@ namespace MedicApp.Services
             List<Medicine> medicines = await _unitOfWork.MedicineRepository.GetAllMedicinesAsync();
             return medicines;
         }
-     }
+
+        public async Task<Medicine> GetMedicineById(int id)
+        {
+            Medicine medicine = await _unitOfWork.MedicineRepository.GetMedicineById(id);
+            return medicine;
+        }
+
+        public async Task AddAsync(Medicine medicine)
+        {
+            await _unitOfWork.MedicineRepository.AddAsync(medicine);
+
+        }
+    }
 }

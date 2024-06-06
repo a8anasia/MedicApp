@@ -1,0 +1,48 @@
+﻿@model List<MedicApp.Data.Medicine>
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="container">
+    <h2 class="text-center mb-4 pt-4 pb-4 bgcolor">Medicine</h2>
+    <table class="mx-auto table center-table">
+        <thead>
+            <tr>
+                <th class="col-3">ID</th>
+                <th class="col-3">Name</th>
+                <th class="col-3">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count != 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr id="row-@item.Id">
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>
+                            <form asp-action="Delete" asp-controller="Medicine" method="post">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-success btn-lg mb-4" href="Insert">New Medicine</a>
+</div>
+
+
+<style>
+    .bgcolor {
+        background-color: #315a39;
+        color: white;
+    }
+</style>
+

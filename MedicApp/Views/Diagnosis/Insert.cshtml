@@ -1,0 +1,39 @@
+﻿@model MedicApp.Data.Diagnosis;
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <form asp-controller="Diagnosis" asp-action="Insert" method="post">
+                <div class="form-group card mt-5 text-center parent">
+                    <label asp-for="Name" class="control-label">Insert Diagnosis</label>
+                    <input asp-for="Name" type="text" class="form-control in1 mt-3" name="Name"
+                           id="Name" placeholder="Diagnosis Name" />
+                    <div>
+                        <a class="btn btn-success mt-3" href="Index">Back to List</a>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success m-3">Insert</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .in1 {
+        width: 60%
+    }
+
+    .parent {
+        place-items: center;
+    }
+</style>
+
+

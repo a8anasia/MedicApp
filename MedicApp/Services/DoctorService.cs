@@ -93,5 +93,62 @@ namespace MedicApp.Services
             }
             return patients;
         }
+
+        public async Task<Doctor?> GetDoctorByUserIdAsync(int? id)
+        {
+            Doctor? doctor = null;
+            try
+            {
+                doctor = await _unitOfWork!.DoctorRepository.GetDoctorByUserIdAsync((int)id);
+            }
+            catch (Exception e)
+            {
+                _logger!.LogError("{Message}{Exception}", e.Message, e.StackTrace);
+            }
+            return doctor;
+        }
+
+        public async Task<int?> GetUserIdByUsername(string username)
+        {
+            int? id = null;
+            try
+            {
+               id = await _unitOfWork!.DoctorRepository.GetUserIdByUsernameAsync(username);
+            }
+            catch (Exception e)
+            {
+                _logger!.LogError("{Message}{Exception}", e.Message, e.StackTrace);
+            }
+            return id;
+        }
+
+        public async Task<List<Appointment>> GetAllDoctorAppointments(int id)
+        {
+            List<Appointment> appointments = new();
+            try
+            {
+               appointments = await _unitOfWork!.DoctorRepository.GetAllDoctorAppointments(id);
+            }
+            catch (Exception e)
+            {
+                _logger!.LogError("{Message}{Exception}", e.Message, e.StackTrace);
+            }
+            return appointments;
+        }
+
+        public async Task<List<Patient>> GetAllPatients()
+        {
+            List<Patient> patients = new();
+            try
+            {
+                patients = await _unitOfWork!.DoctorRepository.GetAllPatient();
+            }
+            catch (Exception e)
+            {
+                _logger!.LogError("{Message}{Exception}", e.Message, e.StackTrace);
+            }
+            return patients;
+
+        }
     }
 }

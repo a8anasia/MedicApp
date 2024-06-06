@@ -1,4 +1,4 @@
-﻿@model IList<AppointmentsViewModel>
+﻿@model IList<AppointmentsViewModelDoc>
 
 @{
     Layout = null;
@@ -14,20 +14,22 @@
         <tr>
             <th scope="col">Appointment ID</th>
             <th scope="col">Date</th>
-            <th spoce="col">Doctor's Lastname</th>
-            <th spoce="col">Speciality</th>
+            <th spoce="col">Patient ID</th>
+            <th spoce="col">Patient Lastname</th>
+       
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.date >= DateOnly.FromDateTime(DateTime.Now))
+            if (item.date > DateOnly.FromDateTime(DateTime.Now))
             {
                 <tr>
                     <td>@item.appointmentId</td>
                     <td>@item.date</td>
-                    <td>@item.doctorLastname</td>
-                    <td>@item.Speciality</td>
+                    <td>@item.patientId</td>
+                    <td>@item.patientLastname</td>
+                   
                 </tr>
             }
 
