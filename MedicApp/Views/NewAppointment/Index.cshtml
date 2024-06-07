@@ -5,37 +5,44 @@
 }
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<h2>Book your appointment</h2>
+<h4 class="text-center">Book your appointment</h4>
 
-<form asp-controller="NewAppointment" asp-action="CheckAppointment" method="post">
-    <div class="form-group m-3">
-        <label for="selectedDate">Select Date:</label>
-        <input type="date" id="selectedDate" min="" name="SelectedDate" class="form-control w-25" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
-    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-controller="NewAppointment" asp-action="CheckAppointment" method="post">
+                <div class="form-group">
+                    <label for="selectedDate">Select Date:</label>
+                    <input type="date" id="selectedDate" min="" name="SelectedDate" class="form-control" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+                </div>
 
-    <div class="form-group m-3">
-        <label for="selectedDoctor">Select Doctor:</label>
-        <select id="selectedDoctor" name="SelectedDoctorId" class="form-control w-25">
-            @foreach (var doctor in Model.Doctors)
-            {
+                <div class="form-group">
+                    <label for="selectedDoctor">Select Doctor:</label>
+                    <select id="selectedDoctor" name="SelectedDoctorId" class="form-control">
+                        @foreach (var doctor in Model.Doctors)
+                        {
+                            <option value="@doctor.Id">@doctor.Lastname @doctor.Speciality</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Add Appointment</button>
 
-                <option value="@doctor.Id">@doctor.Lastname @doctor.Speciality</option>
-            }
-        </select>
-    </div>
-    <button type="submit" class="btn btn-success w-25 text-center m-3">
-        Add Appointment
-    </button>
-
-    @if (ViewData["AvailabilityMessage"] != null)
-    {
-        <div class="alert " role="alert">
-            @ViewData["AvailabilityMessage"]
+                @if (ViewData["AvailabilityMessage"] != null)
+                {
+                    <div class="alert" role="alert">
+                        @ViewData["AvailabilityMessage"]
+                    </div>
+                }
+            </form>
+            <form asp-action="BackToPatient" asp-controller="NewAppointment">
+                <button type="submit" class="btn btn-secondary btn-lg mb-4">Back</button>
+            </form>
         </div>
-    }
-</form>
+    </div>
+</div>
 
 <script>
-     var today = new Date().toISOString().split('T')[0];
+    var today = new Date().toISOString().split('T')[0];
     document.getElementById("selectedDate").setAttribute("min", today);
- </script>
+</script>
+

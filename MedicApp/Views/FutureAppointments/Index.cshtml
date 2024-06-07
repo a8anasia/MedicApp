@@ -16,6 +16,7 @@
             <th scope="col">Date</th>
             <th spoce="col">Doctor's Lastname</th>
             <th spoce="col">Speciality</th>
+            <th spoce="col">Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -28,6 +29,12 @@
                     <td>@item.date</td>
                     <td>@item.doctorLastname</td>
                     <td>@item.Speciality</td>
+                    <td>
+                        <form asp-action="Delete" asp-controller="FutureAppointments" method="post">
+                            <input type="hidden" name="id" value="@item.appointmentId" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             }
 
@@ -35,6 +42,9 @@
     </tbody>
     </tbody>
 </table>
+<form asp-action="BackToPatient" asp-controller="FutureAppointments">
+    <button type="submit" class="btn btn-secondary btn-lg mb-4">Back</button>
+</form>
 
 
 <style>

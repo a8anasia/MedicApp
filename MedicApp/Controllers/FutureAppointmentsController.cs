@@ -57,5 +57,30 @@ namespace MedicApp.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var appointment = await _applicationService.AppointmentService._unitOfWork.AppointmentRepository.GetAsync(id);
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+            await _applicationService.AppointmentService._unitOfWork.AppointmentRepository.DeleteAsync(id);
+            await _applicationService.AppointmentService._unitOfWork.SaveAsync();
+
+            return RedirectToAction("Index");
+
+        }
+
+        public async Task<IActionResult> BackToPatient()
+        {
+            var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var userId = await _applicationService.PatientService.GetUserIdByUsernameAsync(userUsername);
+
+            return RedirectToAction("Index", "Patient", new { id = userId });
+        }
     }
 }

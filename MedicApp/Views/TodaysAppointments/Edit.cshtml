@@ -1,5 +1,31 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model MedicApp.Models.AppointmentsViewModelDoc
+
 @{
+    Layout = null;
 }
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto teztxt-center">
+            <h2>Edit Appointment</h2>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="appointmentId" />
+
+    <div class="form-group">
+        <label asp-for="medicineId" class="control-label">Medicine</label>
+        <select asp-for="medicineId" class="form-control" asp-items="ViewBag.Medicines"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="diagnosisId" class="control-label">Diagnosis</label>
+        <select asp-for="diagnosisId" class="form-control" asp-items="ViewBag.Diagnoses"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+        </div>
+    </div>
+</div>

@@ -41,7 +41,7 @@ namespace MedicApp.Controllers
                         ErrorArray!.Add(new Error("", error.ErrorMessage, ""));
                     }
                 }
-                ViewData["Error Array"] = ErrorArray;
+                ViewData["ErrorArray"] = ErrorArray;
                 return View();
             }
 
@@ -110,5 +110,15 @@ namespace MedicApp.Controllers
             }
            
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "User");
+        }
+
+
+
     }
 }

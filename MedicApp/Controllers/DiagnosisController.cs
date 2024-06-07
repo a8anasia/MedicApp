@@ -1,6 +1,7 @@
 ﻿using MedicApp.Data;
 using MedicApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MedicApp.Controllers
@@ -59,6 +60,16 @@ namespace MedicApp.Controllers
 
             return RedirectToAction("Index");
 
+        }
+
+        public async Task<IActionResult> BackToDoctor()
+        {
+           
+            var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var userId = await _applicationService.DoctorService.GetUserIdByUsername(userUsername);
+
+            return RedirectToAction("Index", "Doctor", new { id = userId });
         }
     }
 }

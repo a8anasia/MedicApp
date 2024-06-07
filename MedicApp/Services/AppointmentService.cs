@@ -26,10 +26,10 @@ namespace MedicApp.Services
         public async Task<bool> AppointmentExistsAsync(DateOnly date, int doctorId)
         {
 
-            var appointments = await _unitOfWork.AppointmentRepository
-                .GetAsync(a => a.Date == date && a.DoctorId == doctorId);
+            var exists = await _unitOfWork.AppointmentRepository
+                .AnyAsync(a => a.Date == date && a.DoctorId == doctorId);
 
-            return appointments.Any();
+            return exists;
         }
     }
 }

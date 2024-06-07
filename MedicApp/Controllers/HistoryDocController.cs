@@ -57,5 +57,14 @@ namespace MedicApp.Controllers
                 return View();
             }
         }
+
+        public async Task<IActionResult> BackToDoctor()
+        {
+            var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var userId = await _applicationService.DoctorService.GetUserIdByUsername(userUsername);
+
+            return RedirectToAction("Index", "Doctor", new { id = userId });
+        }
     }
 }

@@ -2,6 +2,8 @@
 using MedicApp.Models;
 using MedicApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace MedicApp.Controllers
@@ -56,6 +58,72 @@ namespace MedicApp.Controllers
             {
                 return View();
             }
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int appointmentId)
+        {
+            Appointment? appointment;
+
+             appointment = await _applicationService.AppointmentService._unitOfWork
+                .AppointmentRepository.GetAsync(appointmentId);
+
+            var patient = await _applicationService.PatientService._unitOfWork
+       .PatientRepository.GetAsync(appointment.PatientId);
+
+            var viewModel = new AppointmentsViewModelDoc
+            {
+                appointmentId = appointment.Id,
+                date = appointment.Date,
+                patientId = appointment.PatientId,
+                patientLastname = patient?.Lastname,
+                diagnosisId = appointment.DiagnosisId,
+                medicineId = appointment.MedicineId,
+            };
+
+            ViewBag.Medicines = new SelectList(await _applicationService.MedicineService.GetAllMedicinesAsync(), "Id", "Name");
+            ViewBag.Diagnoses = new SelectList(await _applicationService.DiagnosisService.GetAllDiagnosisAsync(), "Id", "Name");
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AppointmentsViewModelDoc viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Medicines = new SelectList(await _applicationService.MedicineService.GetAllMedicinesAsync(), "Id", "Name");
+                ViewBag.Diagnoses = new SelectList(await _applicationService.DiagnosisService.GetAllDiagnosisAsync(), "Id", "Name");
+                return View(viewModel);
+            }
+
+            var appointment = await _applicationService.AppointmentService._unitOfWork
+                .AppointmentRepository.GetAsync(viewModel.appointmentId.Value);
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            appointment.DiagnosisId = viewModel.diagnosisId;
+            appointment.MedicineId = viewModel.medicineId;
+
+             _applicationService.AppointmentService._unitOfWork.AppointmentRepository.UpdateAsync(appointment);
+            await _applicationService.AppointmentService._unitOfWork.SaveAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> BackToDoctor()
+        {
+
+            var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var userId = await _applicationService.DoctorService.GetUserIdByUsername(userUsername);
+
+            return RedirectToAction("Index", "Doctor", new { id = userId });
         }
     }
 }

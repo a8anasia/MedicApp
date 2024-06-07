@@ -205,5 +205,10 @@ public partial class MedicAppDbContext : DbContext
         OnModelCreatingPartial(modelBuilder);
     }
 
+    internal async Task<Appointment> SingleOrDefaultAsync(Func<object, bool> value)
+    {
+        throw new NotImplementedException();
+    }
+
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

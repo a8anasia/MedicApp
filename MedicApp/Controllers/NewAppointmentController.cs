@@ -2,6 +2,7 @@
 using MedicApp.Models;
 using MedicApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 using System.Security.Claims;
 
 namespace MedicApp.Controllers
@@ -45,7 +46,6 @@ namespace MedicApp.Controllers
             {
                 ViewData["AvailabilityMessage"] = $"The doctor is not available on the {viewModel.SelectedDate}";
                 ViewData["ShowAddButton"] = false;
-                return View("NewAppointment", viewModel);
             }
             else
             {
@@ -68,8 +68,18 @@ namespace MedicApp.Controllers
                 await Task.Delay(3000);
 
                 return RedirectToAction("Index", "Patient", new { id = userId });
-
             }
+
+            return View("Index", viewModel);
+        }
+
+        public async Task<IActionResult> BackToPatient()
+        {
+            var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var userId = await _applicationService.PatientService.GetUserIdByUsernameAsync(userUsername);
+
+            return RedirectToAction("Index", "Patient", new { id = userId });
         }
     }
 }

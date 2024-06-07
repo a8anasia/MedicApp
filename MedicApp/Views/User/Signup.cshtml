@@ -123,40 +123,39 @@
             }
         }
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const roleSelect = document.getElementById("UserRole");
-            const doctorFields = document.getElementById("doctor-fields");
-            const patientFields = document.getElementById("patient-fields");
-
-            roleSelect.addEventListener("change", function () {
-                switch (roleSelect.value) {
-                    case "Doctor":
-                        doctorFields.classList.remove("hidden-field");
-                        patientFields.classList.add("hidden-field");
-                        break;
-                    case "Patient":
-                        patientFields.classList.remove("hidden-field");
-                        doctorFields.classList.add("hidden-field");
-                        break;
-                    default:
-                        doctorFields.classList.add("hidden-field");
-                        patientFields.classList.add("hidden-field");
-                        break;
-                }
-            });
-        });
-
-    </script>
-    <script>
-
-        var today = new Date().toISOString().split('T')[0];
-        document.getElementById("BirthDate").setAttribute("max", today);
-    </script>
 </body>
 </html>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const roleSelect = document.getElementById("UserRole");
+        const doctorFields = document.getElementById("doctor-fields");
+        const patientFields = document.getElementById("patient-fields");
 
+        roleSelect.addEventListener("change", function () {
+            switch (roleSelect.value) {
+                case "Doctor":
+                    doctorFields.classList.remove("hidden-field");
+                    patientFields.classList.add("hidden-field");
+                    break;
+                case "Patient":
+                    patientFields.classList.remove("hidden-field");
+                    doctorFields.classList.add("hidden-field");
+                    break;
+                default:
+                    doctorFields.classList.add("hidden-field");
+                    patientFields.classList.add("hidden-field");
+                    break;
+            }
+        });
+    });
+
+</script>
+<script>
+
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById("BirthDate").setAttribute("max", today);
+</script>
 
 <style>
     .con2 {

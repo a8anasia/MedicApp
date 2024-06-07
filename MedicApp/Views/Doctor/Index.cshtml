@@ -1,6 +1,6 @@
 ﻿@model MedicApp.Data.Doctor
 @{
-    Layout = null;
+   Layout = null;
 }
 <div class="page-content page-container" id="page-content">
     <div class="padding">
@@ -16,8 +16,15 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="card-block">
+                                <div class="col-sm-12">
+                                    <a class="btn" href="~/Medicine/Index">Medicine</a>
+                                    <a class="btn" href="~/Diagnosis/Index">Diagnosis</a>
+                                    <a class="btn" href="~/TodaysAppointments/Index">Today's Appointments</a>
+                                    <a class="btn" href="~/FutureAppointmentsDoc/Index">Booked Appointments</a>
+                                    <a class="btn" href="~/HistoryDoc/Index">Appointments History</a> 
+                                </div>
+                               
                                 <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Email</p>
                                         <h6 class="text-muted f-w-400">@Model.Email</h6>
@@ -30,24 +37,9 @@
                                         <p class="m-b-10 f-w-600">Speciality</p>
                                         <h6 class="text-muted f-w-400">@Model.Speciality</h6>
                                     </div>
-
-                                    <div class="col-sm-6">
-                                        <a class="btn" href="~/Medicine/Index">Medicine</a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <a class="btn" href="~/Diagnosis/Index">Diagnosis</a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <a class="btn" href="~/TodaysAppointments/Index">Today's Appointments</a>
-                                    </div>
-                                   <div class="col-sm-6">
-                                       <a class="btn" href="~/HistoryDoc/Index">Appointments History</a>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                       <a class="btn" href="~/FutureAppointmentsDoc/Index">Booked Appointments</a>
-                                    </div>
-                                   
+                                    <form asp-controller="User" asp-action="Logout" method="post">
+                                        <button class="btn" type="submit">Logout</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -57,10 +49,10 @@
         </div>
     </div>
 </div>
-</div>
 
 
-<style>
+
+<style >
     body {
         background-color: #f9f9fa
     }
@@ -71,7 +63,7 @@
 
     .user-card-full {
         overflow: hidden;
-    }
+    } 
 
     .card {
         border-radius: 5px;
@@ -207,4 +199,5 @@
         background-position: center;
         opacity: 0.8;
     }
+
 </style>

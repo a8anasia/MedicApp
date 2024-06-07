@@ -14,8 +14,8 @@
         <tr>
             <th scope="col">Appointment ID</th>
             <th scope="col">Date</th>
-            <th spoce="col">Patient ID</th>
-            <th spoce="col">Patient Lastname</th>
+            <th scope="col">Patient ID</th>
+            <th scope="col">Patient Lastname</th>
             <th scope="col">Diagnosis</th>
             <th scope="col">Medicine</th>
             <th scope="col">Edit</th>
@@ -34,7 +34,7 @@
                     <td>@item.diagnosisName</td>
                     <td>@item.medicineName</td>
                     <td>
-                        <a class="btn btn-success">Edit</a>
+                        <a class="btn btn-success" href="~/TodaysAppointments/Edit?appointmentId=@item.appointmentId">Edit</a>
                     </td>
                 </tr>
             }
@@ -42,7 +42,9 @@
         }
     </tbody>
 </table>
-
+<form asp-action="BackToDoctor" asp-controller="TodaysAppointments">
+    <button type="submit" class="btn btn-secondary btn-lg mb-4">Back</button>
+</form>
 
 <style>
     .bgcolor {

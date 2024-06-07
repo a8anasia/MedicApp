@@ -1,4 +1,6 @@
 ﻿using MedicApp.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace MedicApp.Repositories
 {
@@ -9,11 +11,10 @@ namespace MedicApp.Repositories
             
         }
 
-        public async Task<IEnumerable<Appointment>> GetAsync(Func<Appointment, bool> predicate)
+        public async Task<bool> AnyAsync(Expression<Func<Appointment, bool>> predicate)
         {
-            return await Task.Run(() => _context.Appointments.Where(predicate).ToList());
+            return await _context.Appointments.AnyAsync(predicate);
         }
 
-        
     }
 }
