@@ -44,12 +44,10 @@ namespace MedicApp.Controllers
 
             if (appointmentExists)
             {
-                ViewData["AvailabilityMessage"] = $"The doctor is not available on the {viewModel.SelectedDate}";
-                ViewData["ShowAddButton"] = false;
+                TempData["AvailabilityMessage"] = $"The doctor is not available on the {viewModel.SelectedDate}";
             }
             else
             {
-                ViewData["AvailabilityMessage"] = "The selected doctor is available on the selected date, add your appointment.";
                 var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var userId = await _applicationService.PatientService.GetUserIdByUsernameAsync(userUsername);
                 var patient = await _applicationService.PatientService.GetPatientByUserIdAsync(userId);
@@ -64,10 +62,9 @@ namespace MedicApp.Controllers
                 _unitOfWork.AppointmentRepository.AddAsync(appointment);
 
                 await _applicationService.PatientService._unitOfWork.SaveAsync();
+                TempData["SuccessMessage"] = $"Your appointment is booked";
 
-                await Task.Delay(3000);
-
-                return RedirectToAction("Index", "Patient", new { id = userId });
+                return RedirectToAction("Index");
             }
 
             return View("Index", viewModel);

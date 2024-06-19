@@ -39,6 +39,14 @@
     <form asp-action="BackToDoctor" asp-controller="Medicine">
         <button type="submit" class="btn btn-secondary btn-lg mb-4">Back</button>
     </form>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
 </div>
 
 

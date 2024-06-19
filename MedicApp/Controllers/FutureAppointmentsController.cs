@@ -67,6 +67,18 @@ namespace MedicApp.Controllers
             {
                 return NotFound();
             }
+
+            var doctor = await _applicationService.DoctorService.GetDoctorAsync(appointment.DoctorId);
+         
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            DateOnly tomorrow = today.AddDays(+1);
+
+            if (tomorrow == appointment.Date || today == appointment.Date)
+            {
+                TempData["Message"] = $"You can no longer cancel your appointment. Please contact your doctor at {doctor.Phone}";
+
+                return RedirectToAction("Index");
+            }
             await _applicationService.AppointmentService._unitOfWork.AppointmentRepository.DeleteAsync(id);
             await _applicationService.AppointmentService._unitOfWork.SaveAsync();
 

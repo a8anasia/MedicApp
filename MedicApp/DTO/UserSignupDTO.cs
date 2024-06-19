@@ -28,7 +28,7 @@ namespace MedicApp.DTO
         public UserRole? UserRole { get; set; }
 
         //Doctors specific properties
-        [StringLength(15, ErrorMessage = "Phone number should not exceed 15 characters.")]
+        [StringLength(10, ErrorMessage = "Phone number should not exceed 15 characters.")]
         [Phone(ErrorMessage = "Invalid phone number.")]
         public string? DoctorPhone { get; set; }
 
@@ -42,7 +42,7 @@ namespace MedicApp.DTO
 
 
         //Patients specific properties
-        [StringLength(15, ErrorMessage = "Phone number should not exceed 15 characters.")]
+        [StringLength(10, ErrorMessage = "Phone number should not exceed 15 characters.")]
         [Phone(ErrorMessage = "Invalid phone number.")]
         public string? PatientPhone { get; set; }
 

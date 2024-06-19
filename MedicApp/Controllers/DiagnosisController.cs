@@ -35,15 +35,30 @@ namespace MedicApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Insert(Diagnosis diagnosis)
         {
-            if (ModelState.IsValid)
+            List<Diagnosis> diagnoses = await _applicationService.DiagnosisService.GetAllDiagnosisAsync();
+
+            if (diagnosis.Name == null)
             {
-                await _applicationService.DiagnosisService._unitOfWork.DiagnosisRepository.AddAsync(diagnosis);
-                await _applicationService.DiagnosisService._unitOfWork.SaveAsync();
-                return RedirectToAction("Index");
+                TempData["ErrorMessage"] = "Diagnosis Name is not optional";
+                return RedirectToAction("Insert");
             }
 
-            return View();
+            foreach (var dia in diagnoses)
+            {
+                if (dia.Name == diagnosis.Name)
+                {
+                    TempData["ErrorMessage"] = "The diagnosis already exists";
+                    return RedirectToAction("Insert");
+                }
+            }
+
+            await _applicationService.DiagnosisService._unitOfWork.DiagnosisRepository.AddAsync(diagnosis);
+            await _applicationService.DiagnosisService._unitOfWork.SaveAsync();
+            return RedirectToAction("Index");
+          
         }
+
+
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
@@ -53,6 +68,18 @@ namespace MedicApp.Controllers
             if (diagnosis == null)
             {
                 return NotFound();
+            }
+
+
+            List<Appointment> appointments = (List<Appointment>)await _applicationService.AppointmentService._unitOfWork.AppointmentRepository.GetAllAsync();
+
+            foreach (var appointment in appointments)
+            {
+                if (appointment.DiagnosisId == diagnosis.Id)
+                {
+                    TempData["ErrorMessage"] = "You can't delete this diagnosis, it is in use";
+                    return RedirectToAction("Index");
+                }
             }
 
             await _applicationService.DiagnosisService._unitOfWork.DiagnosisRepository.DeleteAsync(id);

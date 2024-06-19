@@ -3,6 +3,7 @@ using MedicApp.DTO;
 using MedicApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Runtime.Intrinsics.X86;
 using System.Security.Claims;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -37,14 +38,27 @@ namespace MedicApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Insert(Medicine medicine)
         {
-            if (ModelState.IsValid)
+            List<Medicine> medicines = await _applicationService.MedicineService.GetAllMedicinesAsync();
+
+            if (medicine.Name == null)
             {
-                await _applicationService.MedicineService.AddAsync(medicine);
-                await _applicationService.MedicineService._unitOfWork.SaveAsync();
-                return RedirectToAction("Index");
+                TempData["ErrorMessage"] = "Medicine Name is not optional";
+                return RedirectToAction("Insert");
+            } 
+
+            foreach (var med in medicines)
+            {
+                if (med.Name == medicine.Name)
+                {
+                    TempData["ErrorMessage"] = "The medicine already exists";
+                    return RedirectToAction("Insert");
+                }
             }
 
-            return View();
+            await _applicationService.MedicineService.AddAsync(medicine);
+            await _applicationService.MedicineService._unitOfWork.SaveAsync();
+            return RedirectToAction("Index");
+   
         }
 
         [HttpPost]
@@ -52,10 +66,16 @@ namespace MedicApp.Controllers
         {
             var medicine = await _applicationService.MedicineService._unitOfWork.MedicineRepository.GetAsync(id);
 
-            if (medicine == null)
+            List<Appointment> appointments  = (List<Appointment>)await _applicationService.AppointmentService._unitOfWork.AppointmentRepository.GetAllAsync();
+
+            foreach (var appointment in appointments)
             {
-                return NotFound();
-            }
+                if (appointment.MedicineId == medicine.Id)
+                {
+                    TempData["ErrorMessage"] = "You can't delete this medicine, it is in use";
+                    return RedirectToAction("Index");
+                }
+            } 
 
             await _applicationService.MedicineService._unitOfWork.MedicineRepository.DeleteAsync(id);
             await _applicationService.MedicineService._unitOfWork.SaveAsync();

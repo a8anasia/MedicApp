@@ -37,6 +37,18 @@
             <form asp-action="BackToPatient" asp-controller="NewAppointment">
                 <button type="submit" class="btn btn-secondary btn-lg mb-4">Back</button>
             </form>
+            @if (TempData["AvailabilityMessage"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["AvailabilityMessage"]
+                </div>
+            }
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
         </div>
     </div>
 </div>
