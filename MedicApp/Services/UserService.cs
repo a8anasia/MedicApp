@@ -85,28 +85,6 @@ namespace MedicApp.Services
             }
         }
 
-        public async Task<User> UpdateUserAsync(UserPatchDTO request, int userId)
-        {
-            User? existingUser;
-            User? user = null;
-            try
-            {
-                existingUser = await _unitOfWork.UserRepository.GetAsync(userId);
-                if (existingUser == null) return null;
-
-                var userToUpdate = _mapper!.Map<User>(request);
-
-                user = await _unitOfWork.UserRepository.UpdateUserAsync(userId, userToUpdate);
-                await _unitOfWork.SaveAsync();
-                _logger!.LogInformation("{Message}", "User: " + user + " updated successfully");
-            }
-            catch (Exception e)
-            {
-                _logger!.LogError("{Message}{Exception}", e.Message, e.StackTrace);
-            }
-            return user;
-        }
-
         public async Task<User?> GetUserByUsernameAsync(string username)
         {
             User? user = null;

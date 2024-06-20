@@ -15,8 +15,6 @@ namespace MedicApp.Controllers
 {
     public class PatientController : Controller
     {
-        public List<Error> ErrorArray { get; set; } = new();
-
         private readonly IApplicationService _applicationService;
 
 

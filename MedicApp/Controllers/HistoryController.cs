@@ -8,10 +8,7 @@ namespace MedicApp.Controllers
 {
     public class HistoryController : Controller
     {
-        public List<Error> ErrorArray { get; set; } = new();
-
         private readonly IApplicationService _applicationService;
-
 
         public HistoryController(IApplicationService applicationService) : base()
         {
@@ -22,12 +19,16 @@ namespace MedicApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            //finds the username of connected patient 
             var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            //finds the userId of connected patient using his username
             var userId = await _applicationService.PatientService.GetUserIdByUsernameAsync(userUsername);
 
+            //finds the patient using userID
             var patient = await _applicationService.PatientService.GetPatientByUserIdAsync(userId);
 
+            //finds all patient's appointments
             List<Appointment?> appointments = await _applicationService.PatientService.GetAllPatientAppointments(patient.Id);
 
             List<Doctor> doctors = (List<Doctor>)await _applicationService.DoctorService.GetAllDoctorsAsync();
@@ -63,6 +64,7 @@ namespace MedicApp.Controllers
 
         public async Task<IActionResult> BackToPatient()
         {
+            //finds the connected patient to return to his home page
             var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var userId = await _applicationService.PatientService.GetUserIdByUsernameAsync(userUsername);

@@ -42,12 +42,15 @@ namespace MedicApp.Controllers
             bool appointmentExists = await _applicationService.AppointmentService
                         .AppointmentExistsAsync(viewModel.SelectedDate, viewModel.SelectedDoctorId);
 
+            //does not allows the patient booked an appointment if already exist one in the same date with the same doctor
             if (appointmentExists)
             {
                 TempData["AvailabilityMessage"] = $"The doctor is not available on the {viewModel.SelectedDate}";
             }
             else
             {
+
+                //finds the connected patient using patient username
                 var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var userId = await _applicationService.PatientService.GetUserIdByUsernameAsync(userUsername);
                 var patient = await _applicationService.PatientService.GetPatientByUserIdAsync(userId);
@@ -72,6 +75,7 @@ namespace MedicApp.Controllers
 
         public async Task<IActionResult> BackToPatient()
         {
+            //finds the connected patient to return to his home page
             var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var userId = await _applicationService.PatientService.GetUserIdByUsernameAsync(userUsername);

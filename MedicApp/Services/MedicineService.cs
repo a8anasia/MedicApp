@@ -29,10 +29,5 @@ namespace MedicApp.Services
             return medicine;
         }
 
-        public async Task AddAsync(Medicine medicine)
-        {
-            await _unitOfWork.MedicineRepository.AddAsync(medicine);
-
-        }
     }
 }

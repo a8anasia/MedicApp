@@ -8,8 +8,6 @@ namespace MedicApp.Controllers
 {
     public class FutureAppointmentsDocController : Controller
     {
-        public List<Error> ErrorArray { get; set; } = new();
-
         private readonly IApplicationService _applicationService;
 
         public FutureAppointmentsDocController(IApplicationService applicationService) : base()
@@ -20,12 +18,18 @@ namespace MedicApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            //finds the username of connected doctor
             var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+
+            //finds the userId of connected doctor using his username
             var userId = await _applicationService.DoctorService.GetUserIdByUsername(userUsername);
 
+            //finds the doctor using userID
             var doctor = await _applicationService.DoctorService.GetDoctorByUserIdAsync(userId);
 
+
+            //finds all doctor's appointments
             List<Appointment?> appointments = await _applicationService.DoctorService.GetAllDoctorAppointments(doctor.Id);
 
             List<Patient> patient = await _applicationService.DoctorService.GetAllPatients();
@@ -58,6 +62,7 @@ namespace MedicApp.Controllers
 
         public async Task<IActionResult> BackToDoctor()
         {
+            //finds the connected doctor to return to his home page
             var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var userId = await _applicationService.DoctorService.GetUserIdByUsername(userUsername);

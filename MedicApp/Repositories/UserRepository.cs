@@ -101,20 +101,5 @@ namespace MedicApp.Repositories
             return true;
 
         }
-
-        public async Task<User> UpdateUserAsync(int userId, User user)
-        {
-            var existingUser = await _context.Users.Where(u => u.Id == userId)
-                .FirstOrDefaultAsync();
-
-            if (existingUser == null) { return null!; }
-
-            if(existingUser.Id != userId) { return null!; }
-
-            _context.Users.Attach(user);
-            _context.Entry(user).State = EntityState.Modified;
-
-            return existingUser;
-        }
     }
 }

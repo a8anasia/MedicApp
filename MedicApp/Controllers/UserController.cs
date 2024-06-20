@@ -20,7 +20,6 @@ namespace MedicApp.Controllers
         public UserController(IApplicationService applicationService) : base()
         {
             _applicationService = applicationService;
-       
         }
 
         [HttpGet]
@@ -103,7 +102,7 @@ namespace MedicApp.Controllers
             {
                 return RedirectToAction("Index", "Doctor", new { id = user.Id });
             }
-            else //(user.UserRole == UserRole.Patient)
+            else
             {
 
                 return RedirectToAction("Index" ,"Patient", new { id = user.Id });

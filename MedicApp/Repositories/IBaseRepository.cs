@@ -7,6 +7,5 @@
         Task AddAsync(T entity);
         Task<bool> DeleteAsync(int id);
         void UpdateAsync(T entity);
-        Task<int> GetCountAsync();
     }
 }

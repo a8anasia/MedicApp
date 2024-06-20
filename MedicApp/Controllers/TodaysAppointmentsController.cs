@@ -10,8 +10,6 @@ namespace MedicApp.Controllers
 {
     public class TodaysAppointmentsController : Controller
     {
-        public List<Error> ErrorArray { get; set; } = new();
-
         private readonly IApplicationService _applicationService;
 
 
@@ -24,10 +22,9 @@ namespace MedicApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            //finds the connected doctor using patient username
             var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             var userId = await _applicationService.DoctorService.GetUserIdByUsername(userUsername);
-
             var doctor = await _applicationService.DoctorService.GetDoctorByUserIdAsync(userId);
 
             List<Appointment?> appointments = await _applicationService.DoctorService.GetAllDoctorAppointments(doctor.Id);
@@ -83,6 +80,7 @@ namespace MedicApp.Controllers
                 medicineId = appointment.MedicineId,
             };
 
+            //shows lists of medicines and diagnoses
             ViewBag.Medicines = new SelectList(await _applicationService.MedicineService.GetAllMedicinesAsync(), "Id", "Name");
             ViewBag.Diagnoses = new SelectList(await _applicationService.DiagnosisService.GetAllDiagnosisAsync(), "Id", "Name");
 
@@ -92,12 +90,6 @@ namespace MedicApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(AppointmentsViewModelDoc viewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Medicines = new SelectList(await _applicationService.MedicineService.GetAllMedicinesAsync(), "Id", "Name");
-                ViewBag.Diagnoses = new SelectList(await _applicationService.DiagnosisService.GetAllDiagnosisAsync(), "Id", "Name");
-                return View(viewModel);
-            }
 
             var appointment = await _applicationService.AppointmentService._unitOfWork
                 .AppointmentRepository.GetAsync(viewModel.appointmentId.Value);

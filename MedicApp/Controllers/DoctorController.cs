@@ -7,8 +7,6 @@ namespace MedicApp.Controllers
 {
     public class DoctorController : Controller
     {
-        public List<Error> ErrorArray { get; set; } = new();
-
         private readonly IApplicationService _applicationService;
 
         public DoctorController(IApplicationService applicationService) : base()

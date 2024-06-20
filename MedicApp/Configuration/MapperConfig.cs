@@ -9,8 +9,7 @@ namespace MedicApp.Configuration
     {
         public MapperConfig() 
         {
-            CreateMap<User, UserSignupDTO>().ReverseMap();
-            CreateMap<User, UserPatchDTO>().ReverseMap();
+            CreateMap<User, UserSignupDTO>().ReverseMap();;
             CreateMap<User, UserLoginDTO>().ReverseMap();
         }
 

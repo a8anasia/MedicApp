@@ -11,8 +11,6 @@ namespace MedicApp.Controllers
 {
     public class MedicineController : Controller
     {
-        public List<Error> ErrorArray { get; set; } = new();
-
         private readonly IApplicationService _applicationService;
 
 
@@ -55,7 +53,7 @@ namespace MedicApp.Controllers
                 }
             }
 
-            await _applicationService.MedicineService.AddAsync(medicine);
+            await _applicationService.MedicineService._unitOfWork.MedicineRepository.AddAsync(medicine);
             await _applicationService.MedicineService._unitOfWork.SaveAsync();
             return RedirectToAction("Index");
    
@@ -86,6 +84,7 @@ namespace MedicApp.Controllers
 
         public async Task<IActionResult> BackToDoctor()
         {
+            //finds the connected doctor to return to his home page
             var userUsername = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var userId = await _applicationService.DoctorService.GetUserIdByUsername(userUsername);

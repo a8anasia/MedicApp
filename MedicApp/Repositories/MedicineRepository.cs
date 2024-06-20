@@ -23,10 +23,5 @@ namespace MedicApp.Repositories
             Medicine medicine = await _context.Medicines.FirstOrDefaultAsync(x => x.Id == id);
             return medicine;
         }
-
-        public async Task AddAsync(Medicine medicine)
-        {
-            await _context.Medicines.AddAsync(medicine);
-        }
     }
 }

@@ -19,21 +19,6 @@ namespace MedicApp.Services
         
         }
 
-        public async Task<bool> DeleteDoctorAsync(int id)
-        {
-            bool doctorDeleted = false;
-            try
-            {
-                doctorDeleted = await _unitOfWork!.DoctorRepository.DeleteAsync(id);
-                _logger!.LogInformation("{Message}", "Doctor with id:  " + id + " deleted, success");
-            }
-            catch (Exception e)
-            {
-                _logger!.LogError("{Message}{Exception}", e.Message, e.StackTrace);
-            }
-            return doctorDeleted;
-        }
-
         public async Task<IEnumerable<Doctor>> GetAllDoctorsAsync()
         {
             List<Doctor> doctors = new();

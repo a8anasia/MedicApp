@@ -35,13 +35,8 @@ namespace MedicApp.Repositories
             var entities = await _dbSet!.ToListAsync();
             return entities;
         }
-
-     public virtual async Task<int> GetCountAsync()
-        {
-            var count = await _dbSet!.CountAsync();
-            return count;
-;
-        }   public virtual async Task<T?> GetAsync(int id)
+        
+        public virtual async Task<T?> GetAsync(int id)
         {
             var entity = await _dbSet!.FindAsync(id);
             return entity;

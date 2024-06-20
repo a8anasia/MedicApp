@@ -7,8 +7,6 @@ namespace MedicApp.Services
     {
         Task SignUpUserAsync(UserSignupDTO request);
         Task<User> LoginUserAsync(UserLoginDTO credentials);
-        Task<User> UpdateUserAsync(UserPatchDTO request, int userId);
-
         Task<User?> GetUserByUsernameAsync(string username);
         Task<User?> VerifyAndGetUserAsync(UserLoginDTO request);
     }
