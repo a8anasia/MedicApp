@@ -74,7 +74,7 @@ namespace MedicApp.Repositories
                     Lastname = request.Lastname!,
                     Phone = request.DoctorPhone!,
                     Email = request.DoctorEmail!,
-                    Speciality = request.Speciality!,
+                    Specialty = request.Specialty!,
                     UserId = user.Id
                 };
 

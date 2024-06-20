@@ -46,7 +46,7 @@ namespace MedicApp.Controllers
                     diagnosisId = x.DiagnosisId,
                     medicineId = x.MedicineId,
                     doctorLastname = x.Doctor.Lastname,
-                    Speciality = x.Doctor.Speciality,
+                    Specialty = x.Doctor.Specialty,
                     medicineName = x.Medicine?.Name,
                     diagnosisName = x.Diagnosis?.Name
                 }).ToList();

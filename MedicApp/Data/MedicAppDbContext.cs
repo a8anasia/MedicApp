@@ -104,10 +104,10 @@ public partial class MedicAppDbContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("phone");
-            entity.Property(e => e.Speciality)
+            entity.Property(e => e.Specialty)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("speciality");
+                .HasColumnName("specialty");
             entity.Property(e => e.UserId).HasColumnName("userId");
 
             entity.HasOne(d => d.AppointmentsNavigation).WithMany(p => p.Doctors)

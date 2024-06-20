@@ -17,7 +17,7 @@ public partial class Doctor
 
     public int UserId { get; set; }
 
-    public string Speciality { get; set; } = null!;
+    public string Specialty { get; set; } = null!;
 
     public int? AppointmentsId { get; set; }
 

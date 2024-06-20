@@ -36,8 +36,8 @@ namespace MedicApp.DTO
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string? DoctorEmail { get; set; }
 
-        [StringLength(100, ErrorMessage = "Speciality should not exceed 100 characters.")]
-        public string? Speciality { get; set; }
+        [StringLength(100, ErrorMessage = "Specialty should not exceed 100 characters.")]
+        public string? Specialty { get; set; }
 
 
 
@@ -54,7 +54,7 @@ namespace MedicApp.DTO
 
         public override string? ToString()
         {
-            return $"{Username} {Firstname} {Lastname} {DoctorEmail} {DoctorEmail} {PatientEmail} {BirthDate} {Password} {PatientPhone}{DoctorPhone} {Speciality} {UserRole!.Value}";
+            return $"{Username} {Firstname} {Lastname} {DoctorEmail} {DoctorEmail} {PatientEmail} {BirthDate} {Password} {PatientPhone}{DoctorPhone} {Specialty} {UserRole!.Value}";
         }
     }
 }

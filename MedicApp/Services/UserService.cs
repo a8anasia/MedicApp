@@ -172,7 +172,7 @@ namespace MedicApp.Services
                 Lastname = signupDTO.Lastname!,
                 Phone = signupDTO.DoctorPhone!,
                 Email = signupDTO.DoctorEmail!,
-                Speciality = signupDTO.Speciality!
+                Specialty = signupDTO.Specialty!
 
             };
         }

@@ -9,7 +9,7 @@ namespace MedicApp.Models
         public DateOnly? date {  get; set; }
         public int? doctorId { get; set;}
         public string? doctorLastname { get; set; }
-        public string? Speciality { get; set; }
+        public string? Specialty { get; set; }
         public int? diagnosisId { get; set; }
         public string? diagnosisName {  get; set; }
         public int? medicineId { get; set; }
